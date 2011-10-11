@@ -1,0 +1,41 @@
+!!! 5
+//if lt IE 7 ]><html class="ie ie6" lang="en"> 
+//if IE 7 ]><html class="ie ie7" lang="en"> 
+//if IE 8 ]><html class="ie ie8" lang="en"> 
+// [if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]
+head
+  meta(charset='utf-8')
+  title TeamTalk
+  meta(name='description', content='')
+  meta(name='author', content='')
+  //if lt IE 9
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  // Mobile Specific
+  meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
+
+  // CSS
+  link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
+
+  // Favicons
+  link(rel='shortcut icon', href='images/favicon.ico')
+  link(rel='apple-touch-icon', href='images/apple-touch-icon.png')
+  link(rel='apple-touch-icon', sizes='72x72', href='images/apple-touch-icon-72x72.png')
+  link(rel='apple-touch-icon', sizes='114x114', href='images/apple-touch-icon-114x114.png')    
+
+  style(type='text/css')
+    body { padding-top: 60px; }
+
+body
+  .topbar
+    .topbar-inner
+      .container-fluid
+        a.brand(href='#') TeamTalk
+        ul#nav
+          li.active: a(href='#') Home
+          li: a(href='#') About
+        p.pull-right
+          Logged in as
+          a(href='#') Username
+  .container-fluid!= body
+  script(type='text/javascript', src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.4/jquery.min.js')
+| </html>

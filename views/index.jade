@@ -1,0 +1,20 @@
+.sidebar
+  .well
+    h5 Online
+    ul
+      li Tom
+.content
+  .span10
+    h1 TeamTalk
+
+  .span10
+    form
+      .span8
+        textarea.span8(placeholder='Enter Message', autofocus)
+      .span1
+        button.btn.primary Send
+  .span10
+    ul(style='margin-top: 10px')
+      each msg in messages
+        li.well(style='padding: 16px 19px;')
+          p= msg.message
