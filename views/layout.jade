@@ -51,12 +51,22 @@ body
         now.name = prompt('What is your name?', '');
       };
       
-      $('.sidebar .well').append('<h2>' + now.name + '</h2>');
+      //now.register(now.name);
+      //setInterval(function() { now.register(now.name); }, 30000);
+      
+      $('.sidebar .well').append('<h2 id=' + now.name + '>' + now.name + '</h2>');
       $.cookie('name', now.name);
       
       now.receive = function(name, message) {
-        $('#messages').prepend("<li><p class='alert-message block-message success'><span style='font-size: 1.2em;color: rgba(0,0,0,.4);'>" + name + " says </span><br />" + message + "<br /><small style='color:rgba(0,0,0,.4);'>" + Date.create('now').relative() + "</small></p></li>");
+        msg = $("<li style='display:none;'><p class='alert-message block-message success'><span style='font-size: 1.2em;color: rgba(0,0,0,.4);'>" + name + " says </span><br />" + message + "<br /><small style='color:rgba(0,0,0,.4);'>" + Date.create('now').relative() + "</small></p></li>");
+        $('#messages').prepend(msg);
+        msg.fadeIn(500);
       }
+      
+      now.removeUser = function(name) {
+        $('.sidebar h2#' + name).remove();
+      }
+      
       $('#send-button').click(sendMessage);
       $('#text-input').live('keydown', function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
@@ -65,6 +75,5 @@ body
           return true;
         }
       });
-      //key('ctrl+enter', sendMessage);
     });
 | </html>

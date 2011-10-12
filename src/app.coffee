@@ -36,3 +36,6 @@ everyone = nowjs.initialize(app)
 everyone.now.distribute = (msg) ->
   messages.add { name: @now.name, msg: msg }
   everyone.now.receive @now.name, msg
+  
+# nowjs.on 'disconnect', () ->
+#   everyone.nowjs.removeUser 'Tom'

@@ -44,4 +44,7 @@
     });
     return everyone.now.receive(this.now.name, msg);
   };
+  nowjs.on('disconnect', function() {
+    return everyone.nowjs.removeUser('Tom');
+  });
 }).call(this);
