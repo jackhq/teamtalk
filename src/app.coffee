@@ -1,5 +1,10 @@
 express = require("express")
 app = module.exports = express.createServer()
+nowjs = require 'now'
+sugar = require 'sugar'
+messages = require './messages'
+
+messages.init process.env.MONGOHQ_URL ||'localhost:27017/teamtalk' 
 
 app.configure ->
   app.set "views", __dirname + "/views"
@@ -19,11 +24,14 @@ app.configure "production", ->
   app.use express.errorHandler()
 
 app.get "/", (req, res) ->
-  res.render "index", messages: [
-    { message: 'Hello World', author: 'tom@jackhq.com', posted: '30 min ago'}
-    { message: 'Hello World2', author: 'barrett@jackhq.com', posted: '60 min ago'}
-    
-    ]
+  messages.all (err, messages) ->
+    res.render "index", { messages }
   
 app.listen process.env.PORT || 3000, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
+
+everyone = nowjs.initialize(app)
+
+everyone.now.distribute = (msg) ->
+  messages.add { name: @now.name, msg: msg }
+  everyone.now.receive @now.name, msg

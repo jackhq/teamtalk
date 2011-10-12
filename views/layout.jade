@@ -38,4 +38,27 @@ body
           a(href='#') Username
   .container-fluid!= body
   script(type='text/javascript', src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.4/jquery.min.js')
+  script(type='text/javascript', src='/javascripts/sugar-0.9.5.min.js')
+  script(type='text/javascript', src='/nowjs/now.js')
+  script(type='text/javascript')
+    $(document).ready(function() {
+      sendMessage = function() {
+        msg = $('#text-input');
+        now.distribute(msg.val());
+        msg.val('');
+      }
+      now.name = prompt('What is your name?', '');
+      now.receive = function(name, message) {
+        $('#messages').prepend("<li><h6>" + name + " says</h6><p class='alert-message block-message success'>" + message + "<br />" + Date.create('now').relative() + "</p></li>");
+      }
+      $('#send-button').click(sendMessage);
+      $('#text-input').live('keydown', function(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if(code == 13) { //Enter keycode
+          sendMessage();
+          return true;
+        }
+      });
+      //key('ctrl+enter', sendMessage);
+    });
 | </html>

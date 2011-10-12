@@ -1,7 +1,11 @@
 (function() {
-  var app, express;
+  var app, everyone, express, messages, nowjs, sugar;
   express = require("express");
   app = module.exports = express.createServer();
+  nowjs = require('now');
+  sugar = require('sugar');
+  messages = require('./messages');
+  messages.init(process.env.MONGOHQ_URL || 'localhost:27017/teamtalk');
   app.configure(function() {
     app.set("views", __dirname + "/views");
     app.set("view engine", "jade");
@@ -20,21 +24,21 @@
     return app.use(express.errorHandler());
   });
   app.get("/", function(req, res) {
-    return res.render("index", {
-      messages: [
-        {
-          message: 'Hello World',
-          author: 'tom@jackhq.com',
-          posted: '30 min ago'
-        }, {
-          message: 'Hello World2',
-          author: 'barrett@jackhq.com',
-          posted: '60 min ago'
-        }
-      ]
+    return messages.all(function(err, messages) {
+      return res.render("index", {
+        messages: messages
+      });
     });
   });
   app.listen(process.env.PORT || 3000, function() {
     return console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
   });
+  everyone = nowjs.initialize(app);
+  everyone.now.distribute = function(msg) {
+    messages.add({
+      name: this.now.name,
+      msg: msg
+    });
+    return everyone.now.receive(this.now.name, msg);
+  };
 }).call(this);

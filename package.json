@@ -6,6 +6,8 @@
       "express": "2.4.7"
     , "jade": ">= 0.0.1"
     , "mongoskin": "*"
+    , "now": "*"
+    , "sugar": "*"
   }
   , "devDependencies": {
       "coffee-script": "*"
