@@ -33,11 +33,9 @@ body
         ul#nav
           li.active: a(href='#') Home
           li: a(href='#') About
-        p.pull-right
-          Logged in as
-          a(href='#') Username
   .container-fluid!= body
   script(type='text/javascript', src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.4/jquery.min.js')
+  script(type='text/javascript', src='/javascripts/jquery.cookie.js')
   script(type='text/javascript', src='/javascripts/sugar-0.9.5.min.js')
   script(type='text/javascript', src='/nowjs/now.js')
   script(type='text/javascript')
@@ -47,9 +45,17 @@ body
         now.distribute(msg.val());
         msg.val('');
       }
-      now.name = prompt('What is your name?', '');
+      
+      now.name = $.cookie('name');
+      if(now.name === null) {
+        now.name = prompt('What is your name?', '');
+      };
+      
+      $('.sidebar .well').append('<h2>' + now.name + '</h2>');
+      $.cookie('name', now.name);
+      
       now.receive = function(name, message) {
-        $('#messages').prepend("<li><h6>" + name + " says</h6><p class='alert-message block-message success'>" + message + "<br />" + Date.create('now').relative() + "</p></li>");
+        $('#messages').prepend("<li><p class='alert-message block-message success'><span style='font-size: 1.2em;color: rgba(0,0,0,.4);'>" + name + " says </span><br />" + message + "<br /><small style='color:rgba(0,0,0,.4);'>" + Date.create('now').relative() + "</small></p></li>");
       }
       $('#send-button').click(sendMessage);
       $('#text-input').live('keydown', function(e) {
