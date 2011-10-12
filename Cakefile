@@ -15,7 +15,19 @@ build = (watch, callback) ->
   if typeof watch is 'function'
     callback = watch
     watch = false
-  options = ['-c', '-o', '.', 'src']
+  options = ['-c', '-o', '.', 'src/server']
+  options.unshift '-w' if watch
+
+  coffee = spawn 'coffee', options
+  coffee.stdout.on 'data', (data) -> print data.toString()
+  coffee.stderr.on 'data', (data) -> log data.toString(), red
+  coffee.on 'exit', (status) -> callback?() if status is 0
+
+buildClient = (watch, callback) ->
+  if typeof watch is 'function'
+    callback = watch
+    watch = false
+  options = ['-c', '-o', './public/javascripts', 'src/client']
   options.unshift '-w' if watch
 
   coffee = spawn 'coffee', options
@@ -41,7 +53,7 @@ task 'docs', 'Generate annotated source code with Docco', ->
 
 
 task 'build', ->
-  build -> log ":)", green
+  build -> buildClient -> log ":)", green
 
 task 'spec', 'Run Jasmine-Node', ->
   build -> spec -> log ":)", green
