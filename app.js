@@ -10,6 +10,9 @@
     app.set("view engine", "jade");
     app.use(express.bodyParser());
     app.use(express.methodOverride());
+    if (process.env.KEY != null) {
+      app.use(express.basicAuth('admin', process.env.KEY));
+    }
     app.use(app.router);
     return app.use(express.static(__dirname + "/public"));
   });
