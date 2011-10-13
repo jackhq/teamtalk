@@ -34,9 +34,20 @@ body
           li.active: a(href='#') Home
           li: a(href='#') About
   .container-fluid!= body
+  script(type='text/javascript', src='/javascripts/bundle.js')
   script(type='text/javascript', src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.4/jquery.min.js')
   script(type='text/javascript', src='/javascripts/jquery.cookie.js')
   script(type='text/javascript', src='/javascripts/sugar-0.9.5.min.js')
   script(type='text/javascript', src='/nowjs/now.js')
-  script(type='text/javascript', src='/javascripts/app.js')
+  :coffeescript
+    msg = require 'msg'
+    dom = require 'dom'
+    nickname = require 'nickname'
+
+    $(document).ready ->
+      dom.captureClick "#send-button", msg.send
+      dom.captureEnter "#text-input", msg.send
+      dom.addNick ".sidebar .well", nickname.update()
+      msg.receive dom
+    
 | </html>
