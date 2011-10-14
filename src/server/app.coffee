@@ -1,3 +1,13 @@
+everyauth = require 'everyauth'
+
+everyauth.twitter
+  .consumerKey('JcbKXJSIqPZWLDYG0cMJQ')
+  .consumerSecret('tkrY0csk5kVbqpPq7riGwOCPrtGC2FNP7RuIPlo')
+  .redirectPath('/')
+  .findOrCreateUser( (session, accessToken, accessTokenSecret, twitterUserMetadata) ->
+    
+  )
+  
 express = require("express")
 app = module.exports = express.createServer()
 nowjs = require 'now'
@@ -8,10 +18,15 @@ app.configure ->
   app.set "views", __dirname + "/views"
   app.set "view engine", "jade"
   app.use express.bodyParser()
+  app.use express.cookieParser()
+  app.use express.session({secret: 'It is a lovely day for a walk in the park'})
   app.use express.methodOverride()
-  app.use express.basicAuth('admin',process.env.KEY) if process.env.KEY?
+  app.use everyauth.middleware()
+  #app.use express.basicAuth('admin',process.env.KEY) if process.env.KEY?
   app.use app.router
   app.use express.static(__dirname + "/public")
+
+everyauth.helpExpress(app)
 
 app.configure "development", ->
   app.use express.errorHandler(

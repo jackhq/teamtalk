@@ -1,5 +1,7 @@
 (function() {
-  var app, everyone, express, messages, nowjs, sugar;
+  var app, everyauth, everyone, express, messages, nowjs, sugar;
+  everyauth = require('everyauth');
+  everyauth.twitter.consumerKey('JcbKXJSIqPZWLDYG0cMJQ').consumerSecret('tkrY0csk5kVbqpPq7riGwOCPrtGC2FNP7RuIPlo').redirectPath('/').findOrCreateUser(function(session, accessToken, accessTokenSecret, twitterUserMetadata) {});
   express = require("express");
   app = module.exports = express.createServer();
   nowjs = require('now');
@@ -9,13 +11,16 @@
     app.set("views", __dirname + "/views");
     app.set("view engine", "jade");
     app.use(express.bodyParser());
+    app.use(express.cookieParser());
+    app.use(express.session({
+      secret: 'It is a lovely day for a walk in the park'
+    }));
     app.use(express.methodOverride());
-    if (process.env.KEY != null) {
-      app.use(express.basicAuth('admin', process.env.KEY));
-    }
+    app.use(everyauth.middleware());
     app.use(app.router);
     return app.use(express.static(__dirname + "/public"));
   });
+  everyauth.helpExpress(app);
   app.configure("development", function() {
     return app.use(express.errorHandler({
       dumpExceptions: true,
