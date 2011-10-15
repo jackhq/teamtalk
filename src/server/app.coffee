@@ -12,7 +12,7 @@ everyauth.twitter
   .consumerSecret(process.env.TWITTER_SECRET)
   .findOrCreateUser( (sess, accessToken, accessSecret, twitUser) ->
     #users.findOrCreateUser twitUser.id, (err, user) -> users.add(twitUser) if err
-    #everyone.now.name = twitUser.screen_name
+    everyone.now.name = twitUser.screen_name
     twitUser
   )
   .redirectPath('/')
@@ -41,7 +41,7 @@ app.configure "production", ->
 app.get "/", (req, res) ->
   #if everyauth.loggedIn
   #res.cookie 'name', everyauth.twitter.screen_name || 'unknown' 
-  res.cookie 'name', everyauth.twitter.screen_name || 'unknown' 
+  #res.cookie 'name', everyauth.twitter.screen_name || 'unknown' 
   
   messages.all (err, messages) ->
     res.render "index", { messages }

@@ -8,6 +8,7 @@
   users = require('./users');
   everyauth = require('everyauth');
   everyauth.twitter.consumerKey(process.env.TWITTER_KEY).consumerSecret(process.env.TWITTER_SECRET).findOrCreateUser(function(sess, accessToken, accessSecret, twitUser) {
+    everyone.now.name = twitUser.screen_name;
     return twitUser;
   }).redirectPath('/');
   app.configure(function() {
@@ -33,7 +34,6 @@
     return app.use(express.errorHandler());
   });
   app.get("/", function(req, res) {
-    res.cookie('name', everyauth.twitter.screen_name || 'unknown');
     return messages.all(function(err, messages) {
       return res.render("index", {
         messages: messages
