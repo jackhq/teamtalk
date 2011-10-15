@@ -8,7 +8,8 @@
   users = require('./users');
   everyauth = require('everyauth');
   everyauth.twitter.consumerKey(process.env.TWITTER_KEY).consumerSecret(process.env.TWITTER_SECRET).findOrCreateUser(function(sess, accessToken, accessSecret, twitUser) {
-    return console.log(twitUser);
+    console.log(twitUser);
+    return twitUser;
   }).redirectPath('/');
   app.configure(function() {
     app.set("views", __dirname + "/views");

@@ -13,6 +13,7 @@ everyauth.twitter
   .findOrCreateUser( (sess, accessToken, accessSecret, twitUser) ->
     console.log twitUser
     #users.findById twitUser.id || users.add(twitUser)
+    twitUser
   )
   .redirectPath('/')
 
