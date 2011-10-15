@@ -13,7 +13,6 @@ everyauth.twitter
   .findOrCreateUser( (sess, accessToken, accessSecret, twitUser) ->
     #users.findOrCreateUser twitUser.id, (err, user) -> users.add(twitUser) if err
     #everyone.now.name = twitUser.screen_name
-    res.cookie('name', twitUser.screen_name, { maxAge: 900000 });
     twitUser
   )
   .redirectPath('/')
@@ -40,6 +39,9 @@ app.configure "production", ->
   app.use express.errorHandler()
 
 app.get "/", (req, res) ->
+  if everyauth.loggedIn
+    res.cookie 'name', everyauth.twitter.screen_name, maxAge: 900000 
+    
   messages.all (err, messages) ->
     res.render "index", { messages }
 
