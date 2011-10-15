@@ -12,7 +12,8 @@ everyauth.twitter
   .consumerSecret(process.env.TWITTER_SECRET)
   .findOrCreateUser( (sess, accessToken, accessSecret, twitUser) ->
     #users.findOrCreateUser twitUser.id, (err, user) -> users.add(twitUser) if err
-    everyone.now.name = twitUser.screen_name
+    #everyone.now.name = twitUser.screen_name
+    res.cookie('name', twitUser.screen_name, { maxAge: 900000 });
     twitUser
   )
   .redirectPath('/')

@@ -51,6 +51,7 @@ body
     $(document).ready ->
       dom.captureClick "#send-button", msg.send
       dom.captureEnter "#text-input", msg.send
+      nickname.update()
       msg.receive dom
     
 | </html>
