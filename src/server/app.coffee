@@ -13,8 +13,6 @@ everyauth.twitter
   .findOrCreateUser( (sess, accessToken, accessSecret, twitUser) ->
     users.findById twitUser.id, (err, user) ->
       users.add(twitUser) if err
-      
-    everyone.now.name = twitUser.screen_name
     twitUser
   )
   .redirectPath('/')

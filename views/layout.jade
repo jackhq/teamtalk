@@ -51,6 +51,7 @@ body
     $(document).ready ->
       dom.captureClick "#send-button", msg.send
       dom.captureEnter "#text-input", msg.send
+      now.name = "#{everyauth.twitter.user.screen_name}"
       msg.receive dom
     
 | </html>
