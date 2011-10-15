@@ -16,11 +16,9 @@
       secret: 'It is a lovely day for a walk in the park'
     }));
     app.use(express.methodOverride());
-    app.use(everyauth.middleware());
     app.use(app.router);
     return app.use(express.static(__dirname + "/public"));
   });
-  everyauth.helpExpress(app);
   app.configure("development", function() {
     return app.use(express.errorHandler({
       dumpExceptions: true,
@@ -37,6 +35,7 @@
       });
     });
   });
+  everyauth.helpExpress(app);
   app.listen(process.env.PORT || 3000, function() {
     return console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
   });
