@@ -39,9 +39,10 @@ app.configure "production", ->
   app.use express.errorHandler()
 
 app.get "/", (req, res) ->
-  if everyauth.loggedIn
-    res.cookie 'name', everyauth.twitter.screen_name, maxAge: 900000 
-    
+  #if everyauth.loggedIn
+  #res.cookie 'name', everyauth.twitter.screen_name || 'unknown' 
+  res.cookie 'name', everyauth.twitter.screen_name || 'unknown' 
+  
   messages.all (err, messages) ->
     res.render "index", { messages }
 

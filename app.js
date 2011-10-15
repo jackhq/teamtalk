@@ -33,11 +33,7 @@
     return app.use(express.errorHandler());
   });
   app.get("/", function(req, res) {
-    if (everyauth.loggedIn) {
-      res.cookie('name', everyauth.twitter.screen_name, {
-        maxAge: 900000
-      });
-    }
+    res.cookie('name', everyauth.twitter.screen_name || 'unknown');
     return messages.all(function(err, messages) {
       return res.render("index", {
         messages: messages
