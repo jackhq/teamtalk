@@ -9,4 +9,4 @@ module.exports =
   add: (user, cb) ->
     user.created_at = new Date()
     @user.insert message, cb
-
+  findById: (id, cb) -> @users.findById id, cb

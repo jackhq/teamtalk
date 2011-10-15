@@ -20,6 +20,9 @@
     add: function(user, cb) {
       user.created_at = new Date();
       return this.user.insert(message, cb);
+    },
+    findById: function(id, cb) {
+      return this.users.findById(id, cb);
     }
   };
 }).call(this);

@@ -11,8 +11,10 @@ everyauth.twitter
   .consumerKey(process.env.TWITTER_KEY)
   .consumerSecret(process.env.TWITTER_SECRET)
   .findOrCreateUser( (sess, accessToken, accessSecret, twitUser) ->
-    console.log twitUser
-    #users.findById twitUser.id || users.add(twitUser)
+    users.findById twitUser.id, (err, user) ->
+      users.add(twitUser) if err
+      
+    everyone.now.name = twitUser.screen_name
     twitUser
   )
   .redirectPath('/')
