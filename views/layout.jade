@@ -33,6 +33,10 @@ body
         ul#nav
           li.active: a(href='#') Home
           li: a(href='#') About
+        .pull-right
+          - if (everyauth.loggedIn)
+            a(href='/logout') Logout
+
   .container-fluid!= body
   script(type='text/javascript', src='/javascripts/bundle.js')
   script(type='text/javascript', src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.4/jquery.min.js')

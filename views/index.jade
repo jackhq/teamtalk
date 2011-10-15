@@ -1,23 +1,31 @@
 .sidebar
   .well
     ul.media-grid
-      li: a(href='#')
-        img.thumbnail(style='width:100%;', src='/images/jrs_logo_trans.png')
+      li: center
+        img.thumbnail(style='width:80%;', src='/images/jrs_logo_trans.png')
+  - if (everyauth.twitter)
+      h3 Twitter User Data
+      p= JSON.stringify(everyauth.twitter.user)
 .content
-  .span10
-    div(style='padding: 16px 19px;')
-      .span8
-        input.span8#text-input(type='text', placeholder='Enter Message', autofocus)
-      .span1
-        button.btn.primary#send-button Send
+  - if (!everyauth.loggedIn)
+    #twitter-login
+      a(href='/auth/twitter', style='border: 0px')
+        img(style='border: 0px', src='https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png')
+  - else
+    .span10
+      div(style='padding: 16px 19px;')
+        .span8
+          input.span8#text-input(type='text', placeholder='Enter Message', autofocus)
+        .span1
+          button.btn.primary#send-button Send
 
-  .span10
-    ul#messages(style='margin:0;margin-top: 10px;list-style:none;')
-      each message in messages
-        li(style='margin-left:0;')
-          p.alert-message.block-message.success
-            span(style='font-size: 1.2em;color: rgba(0,0,0,.4);') #{message.name} says
-            br
-            = message.msg
-            br
-            small(style='float:right;')= Date.create(message.created_at).relative();
+    .span10
+      ul#messages(style='margin:0;margin-top: 10px;list-style:none;')
+        each message in messages
+          li(style='margin-left:0;')
+            p.alert-message.block-message.success
+              span(style='font-size: 1.2em;color: rgba(0,0,0,.4);') #{message.name} says
+              br
+              = message.msg
+              br
+              small(style='float:right;')= Date.create(message.created_at).relative();
