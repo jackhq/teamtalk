@@ -5,7 +5,7 @@
         img.thumbnail(style='width:80%;', src='/images/jrs_logo_trans.png')
   - if (everyauth.twitter)
       h3 Twitter User Data
-      p= JSON.stringify(everyauth.twitter.user)
+      p= JSON.stringify(everyauth.twitter.user.id)
 .content
   - if (!everyauth.loggedIn)
     #twitter-login
