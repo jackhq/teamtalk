@@ -9,7 +9,6 @@
   everyauth = require('everyauth');
   everyauth.twitter.consumerKey(process.env.TWITTER_KEY).consumerSecret(process.env.TWITTER_SECRET).findOrCreateUser(function(sess, accessToken, accessSecret, twitUser) {
     users.findOrCreate(twitUser);
-    everyone.now.users = users.all();
     everyone.now.name = twitUser.screen_name;
     return twitUser;
   }).redirectPath('/');

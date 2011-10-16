@@ -12,7 +12,7 @@ everyauth.twitter
   .consumerSecret(process.env.TWITTER_SECRET)
   .findOrCreateUser( (sess, accessToken, accessSecret, twitUser) ->
     users.findOrCreate twitUser
-    everyone.now.users = users.all()
+    #everyone.now.users = users.all()
     everyone.now.name = twitUser.screen_name
     twitUser
   )
@@ -48,8 +48,8 @@ everyauth.helpExpress(app)
 app.listen process.env.PORT || 3000, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
 
-messages.init process.env.MONGOHQ_URL ||'localhost:27017/teamtalk' 
-users.init process.env.MONGOHQ_URL ||'localhost:27017/teamtalk' 
+messages.init process.env.MONGOHQ_URL || 'localhost:27017/teamtalk' 
+users.init process.env.MONGOHQ_URL || 'localhost:27017/teamtalk' 
 
 everyone = nowjs.initialize(app)
 
