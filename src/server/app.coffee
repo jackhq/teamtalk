@@ -12,6 +12,7 @@ everyauth.twitter
   .consumerSecret(process.env.TWITTER_SECRET)
   .findOrCreateUser( (sess, accessToken, accessSecret, twitUser) ->
     users.findOrCreate twitUser
+    everyone.now.users = users.all()
     everyone.now.name = twitUser.screen_name
     twitUser
   )
@@ -39,9 +40,8 @@ app.configure "production", ->
   app.use express.errorHandler()
 
 app.get "/", (req, res) ->
-  users.all (err, users) ->
     messages.all (err, messages) ->
-      res.render "index", { messages, users }
+      res.render "index", { messages, users: everyone.now.users }
 
 everyauth.helpExpress(app)
 

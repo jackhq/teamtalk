@@ -12,10 +12,10 @@
       this.db = mongo.db(db);
       return this.users = this.db.collection(collection_name);
     },
-    all: function(cb) {
+    all: function() {
       return this.users.find().sort({
         created_at: -1
-      }).toArray(cb);
+      }).toArray();
     },
     add: function(user, cb) {
       user.created_at = new Date();
