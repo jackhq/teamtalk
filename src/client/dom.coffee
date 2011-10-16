@@ -1,17 +1,4 @@
 module.exports = {
-  captureEnter: (selector, cb) ->
-    $(selector).live 'keydown', (e) ->
-      code = (if e.keyCode then e.keyCode else e.which)
-      cb() if code == 13
-
-  captureClick: (selector, cb) ->
-    $(selector).live 'click', cb
-
-  addNick: (selector, name) ->
-    $(selector).append """
-      <h2 id='#{name}'>#{name}</h2>
-    """
-
   addMessage: (name, message) ->
     html = $("""
 <li style='display:none;'>

@@ -1,10 +1,8 @@
 (function() {
   module.exports = {
-    send: function() {
-      var messageText;
-      messageText = $("#text-input");
-      now.distribute(messageText.val());
-      return messageText.val("");
+    send: function(input) {
+      now.distribute(input.val());
+      return input.val("");
     },
     receive: function(dom) {
       return now.receive = function(name, message) {

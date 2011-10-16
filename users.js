@@ -21,8 +21,16 @@
       user.created_at = new Date();
       return this.user.insert(message, cb);
     },
-    findById: function(id, cb) {
-      return this.users.findById(id, cb);
+    findOrCreate: function(twitter, cb) {
+      return this.users.find({
+        screen_name: twitter.screen_name
+      }, function(err, user) {
+        if (err) {
+          return this.add(twitter, cb);
+        } else {
+          return cb(null, user);
+        }
+      });
     }
   };
 }).call(this);

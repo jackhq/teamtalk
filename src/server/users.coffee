@@ -9,4 +9,6 @@ module.exports =
   add: (user, cb) ->
     user.created_at = new Date()
     @user.insert message, cb
-  findById: (id, cb) -> @users.findById id, cb
+  findOrCreate: (twitter, cb) -> 
+    @users.find {screen_name: twitter.screen_name}, (err, user) ->
+      if err then @add twitter, cb  else cb(null, user)

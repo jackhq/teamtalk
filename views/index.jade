@@ -6,6 +6,7 @@
   - if (everyauth.loggedIn)
       center
         img(src=everyauth.twitter.user.profile_image_url_https)
+        br
         =everyauth.twitter.user.screen_name
 .content
   - if (!everyauth.loggedIn)

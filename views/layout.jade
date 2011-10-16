@@ -46,12 +46,9 @@ body
   :coffeescript
     msg = require 'msg'
     dom = require 'dom'
-    nickname = require 'nickname'
 
     $(document).ready ->
-      $('form').submit -> msg.send()
-      #dom.captureClick "#send-button", msg.send
-      #dom.captureEnter "#text-input", msg.send
+      $('form').submit -> msg.send $('#text-input')
       msg.receive dom
     
 | </html>

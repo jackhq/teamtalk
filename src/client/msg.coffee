@@ -1,8 +1,7 @@
 module.exports = {
-  send: ->
-    messageText = $("#text-input")
-    now.distribute(messageText.val())
-    messageText.val ""
+  send: (input) ->
+    now.distribute input.val()
+    input.val ""
 
  receive: (dom) ->
     now.receive = (name, message) ->
