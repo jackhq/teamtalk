@@ -24,7 +24,7 @@
     findOrCreate: function(twitter, cb) {
       return this.users.find({
         screen_name: twitter.screen_name
-      }, function(err, user) {
+      }).toArray(function(err, user) {
         if (err) {
           return this.add(twitter, cb);
         } else {
