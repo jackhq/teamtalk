@@ -4,10 +4,11 @@
       li: center
         img.thumbnail(style='width:80%;', src='/images/jrs_logo_trans.png')
   - if (everyauth.loggedIn)
-      center
-        img(src=everyauth.twitter.user.profile_image_url_https)
-        br
-        = everyauth.twitter.user.screen_name
+      each user in users
+        center
+          img(src=user.profile_image_url_https)
+          br
+          = user.screen_name
 .content
   - if (!everyauth.loggedIn)
     #twitter-login

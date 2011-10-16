@@ -38,7 +38,7 @@
     return messages.all(function(err, messages) {
       return res.render("index", {
         messages: messages,
-        users: everyone.now.users
+        users: users.all()
       });
     });
   });

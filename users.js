@@ -19,7 +19,6 @@
     },
     add: function(user, cb) {
       user.created_at = new Date();
-      console.log('add user');
       return this.users.insert(user, cb);
     },
     findOrCreate: function(twitter, cb) {
@@ -31,7 +30,6 @@
           created_at: -1
         }
       }).toArray(function(err, users) {
-        console.log(users);
         if (users) {
           return cb(err, users[0]);
         } else {

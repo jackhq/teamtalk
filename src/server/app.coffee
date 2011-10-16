@@ -41,7 +41,7 @@ app.configure "production", ->
 
 app.get "/", (req, res) ->
     messages.all (err, messages) ->
-      res.render "index", { messages, users: everyone.now.users }
+      res.render "index", { messages, users: users.all() }
 
 everyauth.helpExpress(app)
 
