@@ -1,7 +1,7 @@
 module.exports = {
-  send: (input) ->
-    now.distribute input.val()
-    input.val ""
+  send: (msgText) ->
+    now.distribute msgText
+    true
 
  receive: (dom) ->
     now.receive = (name, message) ->

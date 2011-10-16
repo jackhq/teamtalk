@@ -1,8 +1,8 @@
 (function() {
   module.exports = {
-    send: function(input) {
-      now.distribute(input.val());
-      return input.val("");
+    send: function(msgText) {
+      now.distribute(msgText);
+      return true;
     },
     receive: function(dom) {
       return now.receive = function(name, message) {

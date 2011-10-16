@@ -48,7 +48,12 @@ body
     dom = require 'dom'
 
     $(document).ready ->
-      $('form').submit -> msg.send $('#text-input')
+      $('form').submit -> 
+        textInput = $('#text-input')
+        msg.send textInput.val()
+        textInput.val('')
+        true
+        
       msg.receive dom
     
 | </html>
