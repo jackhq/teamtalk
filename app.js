@@ -36,12 +36,12 @@
   });
   app.get("/", function(req, res) {
     return messages.all(function(err, messages) {
-      var allUsers;
-      allUsers = users.all();
-      console.log(allUsers);
-      return res.render("index", {
-        messages: messages,
-        users: allUsers
+      return users.all(err, allUsers)(function() {
+        console.log(allUsers);
+        return res.render("index", {
+          messages: messages,
+          users: allUsers
+        });
       });
     });
   });
