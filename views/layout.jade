@@ -49,9 +49,9 @@ body
     nickname = require 'nickname'
 
     $(document).ready ->
-      dom.captureClick "#send-button", msg.send
-      dom.captureEnter "#text-input", msg.send
-      nickname.update()
+      $('form').submit -> msg.send()
+      #dom.captureClick "#send-button", msg.send
+      #dom.captureEnter "#text-input", msg.send
       msg.receive dom
     
 | </html>

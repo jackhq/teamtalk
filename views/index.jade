@@ -3,11 +3,10 @@
     ul.media-grid
       li: center
         img.thumbnail(style='width:80%;', src='/images/jrs_logo_trans.png')
-  - if (everyauth.twitter)
-      h3 Twitter User Data
-      p
+  - if (everyauth.loggedIn)
+      center
         img(src=everyauth.twitter.user.profile_image_url_https)
-      p=everyauth.twitter.user.screen_name
+        =everyauth.twitter.user.screen_name
 .content
   - if (!everyauth.loggedIn)
     #twitter-login
@@ -16,10 +15,11 @@
   - else
     .span10
       div(style='padding: 16px 19px;')
-        .span8
-          input.span8#text-input(type='text', placeholder='Enter Message', autofocus)
-        .span1
-          button.btn.primary#send-button Send
+        form
+          .span8
+            input.span8#text-input(type='text', placeholder='Enter Message', autofocus)
+          .span1
+            button.btn.primary#send-button Send
 
     .span10
       ul#messages(style='margin:0;margin-top: 10px;list-style:none;')
