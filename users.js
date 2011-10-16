@@ -19,18 +19,11 @@
     },
     add: function(user, cb) {
       user.created_at = new Date();
-      return this.users.insert(user, cb);
+      this.users.insert(user, cb);
+      return console.log('added twitter user');
     },
     findOrCreate: function(twitter, cb) {
-      return this.users.find({
-        screen_name: twitter.screen_name
-      }).toArray(function(err, user) {
-        if (err) {
-          return this.add(twitter, cb);
-        } else {
-          return cb(null, user);
-        }
-      });
+      return this.add(twitter);
     }
   };
 }).call(this);
