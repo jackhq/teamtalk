@@ -20,10 +20,23 @@
     add: function(user, cb) {
       user.created_at = new Date();
       this.users.insert(user, cb);
-      return console.log('added twitter user');
+      return console.log('add user');
     },
     findOrCreate: function(twitter, cb) {
-      return this.add(twitter);
+      this.add(twitter);
+      return this.users.find({
+        screen_name: twitter.screen_name
+      }, {
+        sort: {
+          created_at: -1
+        }
+      }).toArray(function(err, user) {
+        if (user) {
+          return cb(err, user);
+        } else {
+          return this.add(twitter, cb);
+        }
+      });
     }
   };
 }).call(this);

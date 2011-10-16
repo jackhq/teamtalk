@@ -8,8 +8,8 @@ module.exports =
   add: (user, cb) ->
     user.created_at = new Date()
     @users.insert user, cb
-    console.log 'added twitter user'
+    console.log 'add user'
   findOrCreate: (twitter, cb) -> 
     @add twitter
-    #@users.find({screen_name: twitter.screen_name}).toArray (err, user) ->
-    #  if err then @add twitter, cb else cb(null, user)
+    @users.find({screen_name: twitter.screen_name}, {sort: created_at: -1}).toArray (err, user) ->
+      if user then cb(err, user) else @add(twitter, cb)
