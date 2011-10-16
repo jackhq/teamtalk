@@ -35,9 +35,12 @@
     return app.use(express.errorHandler());
   });
   app.get("/", function(req, res) {
-    return messages.all(function(err, messages) {
-      return res.render("index", {
-        messages: messages
+    return users.all(function(err, users) {
+      return messages.all(function(err, messages) {
+        return res.render("index", {
+          messages: messages,
+          users: users
+        });
       });
     });
   });

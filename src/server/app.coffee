@@ -39,8 +39,9 @@ app.configure "production", ->
   app.use express.errorHandler()
 
 app.get "/", (req, res) ->
-  messages.all (err, messages) ->
-    res.render "index", { messages }
+  users.all (err, users) ->
+    messages.all (err, messages) ->
+      res.render "index", { messages, users }
 
 everyauth.helpExpress(app)
 
