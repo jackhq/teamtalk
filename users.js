@@ -19,7 +19,7 @@
     },
     add: function(user, cb) {
       user.created_at = new Date();
-      return this.user.insert(user, cb);
+      return this.users.insert(user, cb);
     },
     findOrCreate: function(twitter, cb) {
       return this.users.find({

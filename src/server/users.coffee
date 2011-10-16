@@ -7,7 +7,7 @@ module.exports =
   all: -> @users.find().sort({created_at: -1}).toArray()
   add: (user, cb) ->
     user.created_at = new Date()
-    @user.insert user, cb
+    @users.insert user, cb
   findOrCreate: (twitter, cb) -> 
     @users.find {screen_name: twitter.screen_name}, (err, user) ->
       if err then @add twitter, cb  else cb(null, user)
