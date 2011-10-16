@@ -36,12 +36,8 @@
   });
   app.get("/", function(req, res) {
     return messages.all(function(err, messages) {
-      return users.all(err, allUsers)(function() {
-        console.log(allUsers);
-        return res.render("index", {
-          messages: messages,
-          users: allUsers
-        });
+      return res.render("index", {
+        messages: messages
       });
     });
   });
