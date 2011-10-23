@@ -51,10 +51,10 @@
     return app.use(express.errorHandler());
   });
   app.get("/", protect, function(req, res) {
-    everyone.now.name = req.getAuthDetails().user.username;
     return messages.all(function(err, messages) {
       return res.render("index", {
-        messages: messages
+        messages: messages,
+        nick: req.getAuthDetails().user.username
       });
     });
   });
