@@ -54,5 +54,6 @@ body
       msg.receive dom
       now.ready ->
         now.name = $('meta[name=nick]').attr('content')
-        $('body').prepend 'ready'
+        $('form').show()
+        $('h1#waiting').hide()
 | </html>
