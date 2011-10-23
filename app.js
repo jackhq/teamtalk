@@ -18,6 +18,8 @@
           }
         }
       });
+    } else {
+      return next();
     }
   };
   app.configure(function() {

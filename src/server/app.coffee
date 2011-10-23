@@ -14,6 +14,8 @@ protect = (req, res, next) ->
           next()
         else if authenticated is false
           res.end "Access Denied!"
+  else
+    next()
 
 app.configure ->
   app.set "views", __dirname + "/views"
