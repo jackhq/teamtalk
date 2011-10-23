@@ -53,8 +53,9 @@ body
         
       msg.receive dom
   - if nick
-    :coffeescript
-      $(document).ready ->
-        now = #{nick}
-    
+    |<script type='text/javascript'>
+    |$(document).ready(function(){
+    |  now.name = "#{nick}";
+    |});
+    |</script>
 | </html>
