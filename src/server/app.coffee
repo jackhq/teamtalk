@@ -22,7 +22,10 @@ app.configure ->
   app.use express.cookieParser()
   app.use express.session({secret: 'It is a lovely day for a walk in the park'})
   app.use auth([
-    auth.Twitter(consumerKey: process.env.TWITTER_KEY, consumerSecret: process.env.TWITTER_SECRET )
+    auth.Twitter  
+      consumerKey: process.env.TWITTER_KEY
+      consumerSecret: process.env.TWITTER_SECRET
+      callback: 'http://talk.jackhq.com/auth/twitter/callback'
     ])
   app.use express.methodOverride()
 

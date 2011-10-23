@@ -31,7 +31,8 @@
     app.use(auth([
       auth.Twitter({
         consumerKey: process.env.TWITTER_KEY,
-        consumerSecret: process.env.TWITTER_SECRET
+        consumerSecret: process.env.TWITTER_SECRET,
+        callback: 'http://talk.jackhq.com/auth/twitter/callback'
       })
     ]));
     app.use(express.methodOverride());
