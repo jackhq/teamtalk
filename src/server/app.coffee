@@ -11,6 +11,7 @@ protect = (req, res, next) ->
     req.authenticate (error, authenticated) ->
       unless error
         if authenticated is true
+          console.log authenticated
           next()
         else if authenticated is false
           res.end "Access Denied!"

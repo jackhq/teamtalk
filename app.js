@@ -12,6 +12,7 @@
       return req.authenticate(function(error, authenticated) {
         if (!error) {
           if (authenticated === true) {
+            console.log(authenticated);
             return next();
           } else if (authenticated === false) {
             return res.end("Access Denied!");
