@@ -14,7 +14,7 @@
           if (authenticated === true) {
             return next();
           } else if (authenticated === false) {
-            return next(new Error("Access Denied!"));
+            return res.end("Access Denied!");
           }
         }
       });
@@ -31,8 +31,7 @@
     app.use(auth([
       auth.Twitter({
         consumerKey: process.env.TWITTER_KEY,
-        consumerSecret: process.env.TWITTER_SECRET,
-        callback: 'http://talk.jackhq.com/auth/twitter/callback'
+        consumerSecret: process.env.TWITTER_SECRET
       })
     ]));
     app.use(express.methodOverride());
@@ -54,9 +53,6 @@
         messages: messages
       });
     });
-  });
-  app.get("/auth/twitter/callback", function(req, resp) {
-    return resp.redirect('/');
   });
   app.listen(process.env.PORT || 3000, function() {
     return console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

@@ -13,7 +13,7 @@ protect = (req, res, next) ->
         if authenticated is true
           next()
         else if authenticated is false
-          next new Error("Access Denied!")
+          res.end "Access Denied!"
 
 app.configure ->
   app.set "views", __dirname + "/views"
@@ -25,7 +25,6 @@ app.configure ->
     auth.Twitter  
       consumerKey: process.env.TWITTER_KEY
       consumerSecret: process.env.TWITTER_SECRET
-      callback: 'http://talk.jackhq.com/auth/twitter/callback'
     ])
   app.use express.methodOverride()
 
@@ -44,9 +43,6 @@ app.configure "production", ->
 app.get "/", protect, (req, res) ->
   messages.all (err, messages) ->
     res.render "index", { messages }
-
-app.get "/auth/twitter/callback", (req, resp) -> resp.redirect '/'
-
 
 app.listen process.env.PORT || 3000, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
