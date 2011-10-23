@@ -25,7 +25,7 @@ app.configure ->
     auth.Twitter  
       consumerKey: process.env.TWITTER_KEY
       consumerSecret: process.env.TWITTER_SECRET
-      callback: '/auth/twitter/callback'
+      callback: 'http://talk.jackhq.com/auth/twitter/callback'
     ])
   app.use express.methodOverride()
 
