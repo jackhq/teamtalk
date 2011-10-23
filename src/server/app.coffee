@@ -16,7 +16,6 @@ protect = (req, res, next) ->
         else if authenticated is false
           res.end "Access Denied!"
   else
-    console.log req
     next()
 
 app.configure ->
@@ -46,7 +45,7 @@ app.configure "production", ->
 
 app.get "/", protect, (req, res) ->
   messages.all (err, messages) ->
-    res.render "index", { messages }
+    res.render "index", { messages, screenname: req.getAuthDetails().user.username }
 
 app.listen process.env.PORT || 3000, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
