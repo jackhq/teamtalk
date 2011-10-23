@@ -7,6 +7,7 @@
   messages = require('./messages');
   users = require('./users');
   auth = require('connect-auth');
+  users = [];
   protect = function(req, res, next) {
     if (!req.isAuthenticated()) {
       return req.authenticate(function(error, authenticated) {
@@ -53,6 +54,7 @@
   app.get("/", protect, function(req, res) {
     return messages.all(function(err, messages) {
       return res.render("index", {
+        users: users,
         messages: messages,
         nick: req.getAuthDetails().user.username
       });
@@ -70,5 +72,11 @@
       msg: msg
     });
     return everyone.now.receive(this.now.name, msg);
+  };
+  everyone.now.addUser = function(name) {
+    return users.push(name);
+  };
+  everyone.now.users = function() {
+    return users;
   };
 }).call(this);

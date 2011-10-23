@@ -5,6 +5,8 @@ sugar = require 'sugar'
 messages = require './messages'
 users = require './users'
 auth = require 'connect-auth'
+users = []
+
 
 protect = (req, res, next) ->
   unless req.isAuthenticated()
@@ -45,7 +47,7 @@ app.configure "production", ->
 
 app.get "/", protect, (req, res) ->
   messages.all (err, messages) ->
-    res.render "index", { messages, nick: req.getAuthDetails().user.username  }
+    res.render "index", { users, messages, nick: req.getAuthDetails().user.username  }
 
 app.listen process.env.PORT || 3000, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
@@ -58,4 +60,10 @@ everyone = nowjs.initialize(app)
 everyone.now.distribute = (msg) ->
   messages.add { name: @now.name, msg: msg }
   everyone.now.receive @now.name, msg
+
+everyone.now.addUser = (name) ->
+  users.push name
+
+everyone.now.users = ->
+  users
 
