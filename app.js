@@ -20,7 +20,6 @@
         }
       });
     } else {
-      console.log(req);
       return next();
     }
   };
@@ -54,7 +53,8 @@
   app.get("/", protect, function(req, res) {
     return messages.all(function(err, messages) {
       return res.render("index", {
-        messages: messages
+        messages: messages,
+        screenname: req.getAuthDetails().user.username
       });
     });
   });
