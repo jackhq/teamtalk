@@ -20,6 +20,7 @@
         }
       });
     } else {
+      console.log(req);
       return next();
     }
   };
