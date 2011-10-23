@@ -33,9 +33,6 @@ body
         ul#nav
           li.active: a(href='#') Home
           li: a(href='#') About
-        .pull-right
-          - if (everyauth.loggedIn)
-            a(href='/logout') Logout
 
   .container-fluid!= body
   script(type='text/javascript', src='/javascripts/bundle.js')

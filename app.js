@@ -1,17 +1,25 @@
 (function() {
-  var app, everyauth, everyone, express, messages, nowjs, sugar, users;
+  var app, auth, everyone, express, messages, nowjs, protect, sugar, users;
   express = require("express");
   app = module.exports = express.createServer();
   nowjs = require('now');
   sugar = require('sugar');
   messages = require('./messages');
   users = require('./users');
-  everyauth = require('everyauth');
-  everyauth.twitter.consumerKey(process.env.TWITTER_KEY).consumerSecret(process.env.TWITTER_SECRET).findOrCreateUser(function(sess, accessToken, accessSecret, twitUser) {
-    users.findOrCreate(twitUser);
-    everyone.now.name = twitUser.screen_name;
-    return twitUser;
-  }).redirectPath('/');
+  auth = require('connect-auth');
+  protect = function(req, res, next) {
+    if (!req.isAuthenticated()) {
+      return req.authenticate(function(error, authenticated) {
+        if (!error) {
+          if (authenticated === true) {
+            return next();
+          } else if (authenticated === false) {
+            return next(new Error("Access Denied!"));
+          }
+        }
+      });
+    }
+  };
   app.configure(function() {
     app.set("views", __dirname + "/views");
     app.set("view engine", "jade");
@@ -20,8 +28,13 @@
     app.use(express.session({
       secret: 'It is a lovely day for a walk in the park'
     }));
+    app.use(auth([
+      auth.Twitter({
+        consumerKey: process.env.TWITTER_KEY,
+        consumerSecret: process.env.TWITTER_SECRET
+      })
+    ]));
     app.use(express.methodOverride());
-    app.use(everyauth.middleware());
     app.use(app.router);
     return app.use(express.static(__dirname + "/public"));
   });
@@ -34,14 +47,13 @@
   app.configure("production", function() {
     return app.use(express.errorHandler());
   });
-  app.get("/", function(req, res) {
+  app.get("/", protect, function(req, res) {
     return messages.all(function(err, messages) {
       return res.render("index", {
         messages: messages
       });
     });
   });
-  everyauth.helpExpress(app);
   app.listen(process.env.PORT || 3000, function() {
     return console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
   });
