@@ -52,5 +52,7 @@ body
         false
         
       msg.receive dom
-      now.name = $('meta[name=nick]').attr('content')
+      now.ready ->
+        now.name = $('meta[name=nick]').attr('content')
+        $('body').prepend 'ready'
 | </html>
