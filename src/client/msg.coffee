@@ -3,7 +3,7 @@ module.exports = {
     now.distribute msgText
     true
 
- receive: (dom) ->
+  receive: (dom) ->
     now.receive = (name, message) ->
       dom.addMessage name, message
 }

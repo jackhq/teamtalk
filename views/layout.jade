@@ -52,5 +52,9 @@ body
         false
         
       msg.receive dom
+  - if nick
+    :coffeescript
+      $(document).ready ->
+        now = #{nick}
     
 | </html>
